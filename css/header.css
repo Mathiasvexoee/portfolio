@@ -1,0 +1,101 @@
+/* =========================
+   HEADER
+========================= */
+
+.site-header {
+  position: relative;
+
+  width: min(1100px, calc(100vw - 40px));
+
+  margin: 25px auto 0;
+}
+
+/* Selve den håndtegnede SVG */
+
+.header-outline {
+  display: block;
+
+  width: 100%;
+  height: auto;
+}
+
+/* Indhold oven på SVG */
+
+.header-content {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 4%;
+}
+
+/* Logo */
+
+.logo {
+  display: block;
+
+  width: clamp(35px, 5vw, 60px);
+}
+
+.logo img {
+  width: 100%;
+}
+
+/* Navigation */
+
+.header-content nav ul {
+  display: flex;
+  align-items: center;
+
+  gap: clamp(25px, 5vw, 65px);
+
+  list-style: none;
+}
+
+.header-content nav li {
+  position: relative;
+}
+
+/* De blå streger mellem links */
+
+.header-content nav li:not(:last-child)::after {
+  content: "";
+
+  position: absolute;
+
+  width: 2px;
+  height: 22px;
+
+  background-color: var(--blue-text);
+
+  right: clamp(-35px, -2.5vw, -20px);
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  opacity: 0.8;
+}
+
+.header-content nav a {
+  text-decoration: none;
+
+  text-transform: uppercase;
+
+  color: var(--black);
+
+  font-family: "Roboto", sans-serif;
+
+  font-size: clamp(0.7rem, 1.3vw, 1rem);
+
+  font-weight: 700;
+
+  transition: color 0.2s ease;
+}
+
+.header-content nav a:hover {
+  color: var(--blue-text);
+}

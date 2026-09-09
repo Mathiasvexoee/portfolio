@@ -1,0 +1,67 @@
+@font-face {
+  font-family: "Chillax";
+  src: url("../assets/Chillax-Variable.woff2") format("woff2");
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --black: #242528;
+  --blue: #cbe0ec;
+  --blue-text: #6993ab;
+  --white: #f9f8f7;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--white);
+  color: var(--black);
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h4 {
+  font-family: "Chillax", sans-serif;
+}
+
+h3,
+p,
+a {
+  font-family: "Roboto", sans-serif;
+}
+
+p {
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+/* =========================
+   SHARED CONTAINER
+========================= */
+
+.container {
+  width: min(1100px, calc(100% - 70px));
+  margin: 0 auto;
+}
