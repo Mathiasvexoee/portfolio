@@ -11,14 +11,16 @@
   </head>
   <body>
     <header class="site-header">
-      <img class="header-outline" src="assets/header.svg" alt="" />
+      <img class="header-outline" src="assets/header.svg" alt="" aria-hidden="true" />
       <div class="header-content">
-        <a href="index.html" class="logo">
-          <img src="assets/img/Logo.svg" alt="Mathias Vexøe logo" />
+        <a href="index.html" class="logo" aria-label="Mathias Vexøe logo">
+          <span class="logo-icon"></span>
         </a>
         <nav>
           <ul>
+            <li class="nav-divider" aria-hidden="true"><img class="divider-line" src="assets/divider.svg" alt="" /></li>
             <li><a href="#portfolio">Portfolio</a></li>
+            <li class="nav-divider" aria-hidden="true"><img class="divider-line" src="assets/divider.svg" alt="" /></li>
             <li><a href="#cv">CV</a></li>
           </ul>
         </nav>
@@ -39,6 +41,7 @@
             </p>
           </div>
         </div>
+        <img class="hero-arrow" src="assets/arrow2.svg" alt="" aria-hidden="true" />
         <img class="portrait" src="assets/img/portrait.png" alt="Portræt" />
       </section>
       <section id="portfolio" class="portfolio-intro">
@@ -62,7 +65,10 @@
           <div class="project-image">
             <img src="assets/img/Jojo-mockup.png" alt="JOJO Website" />
           </div>
-          <a href="#" class="project-button"><img src="assets/cta.svg" alt="hjemmeside knap" /></a>
+          <div class="cta">
+            <img class="arrow" src="assets/arrow1.svg" alt="" aria-hidden="true" />
+            <a href="#" class="project-button"><img src="assets/cta.svg" alt="hjemmeside knap" /></a>
+          </div>
         </div>
       </article>
       <article class="project project-some">
@@ -78,17 +84,29 @@
             </div>
           </div>
 
-          <div class="some-images">
+          <div class="some-card some-card--laptop">
             <img class="some-laptop" src="assets/img/YCDK-mockup.png" alt="YCDK Website" />
-            <div class="phones">
-              <img src="assets/img/Iphone1-mockup.png" alt="SoMe post" />
-              <img src="assets/img/Iphone2-mockup.png" alt="SoMe post" />
+            <div class="cta">
+              <img class="arrow" src="assets/arrow1.svg" alt="" aria-hidden="true" />
+              <a href="#" class="project-button"><img src="assets/cta.svg" alt="hjemmeside knap" /></a>
             </div>
           </div>
-          <a href="#" class="project-button"><img src="assets/cta.svg" alt="hjemmeside knap" /></a>
-          <div class="video-button">
-            <a href="#" class="project-button"><img src="assets/cta2.svg" alt="video knap" /></a>
-            <a href="#" class="project-button"><img src="assets/cta2.svg" alt="video knap" /></a>
+
+          <div class="phones">
+            <div class="some-card some-card--phone">
+              <img class="phone-mockup phone-mockup--sm" src="assets/img/Iphone1-mockup.png" alt="SoMe post" />
+              <div class="cta-item">
+                <img class="arrow arrow--flip" src="assets/arrow1.svg" alt="" aria-hidden="true" />
+                <a href="#" class="project-button"><img src="assets/cta2.svg" alt="video knap" /></a>
+              </div>
+            </div>
+            <div class="some-card some-card--phone">
+              <img class="phone-mockup phone-mockup--lg" src="assets/img/Iphone2-mockup.png" alt="SoMe post" />
+              <div class="cta-item">
+                <img class="arrow arrow--flip" src="assets/arrow1.svg" alt="" aria-hidden="true" />
+                <a href="#" class="project-button"><img src="assets/cta2.svg" alt="video knap" /></a>
+              </div>
+            </div>
           </div>
         </div>
       </article>
@@ -108,40 +126,56 @@
           <div class="project-image">
             <img src="assets/img/Uge44-mockup.png" alt="Uge44 Website" />
           </div>
-          <a href="#" class="project-button"><img src="assets/cta.svg" alt="hjemmeside knap" /></a>
+          <div class="cta">
+            <img class="arrow" src="assets/arrow1.svg" alt="" aria-hidden="true" />
+            <a href="#" class="project-button"><img src="assets/cta.svg" alt="hjemmeside knap" /></a>
+          </div>
         </div>
       </article>
       <article class="project project-spati">
         <div class="project-inner">
-          <div class="project-text">
-            <h4>Nørrebro Späti</h4>
-            <div class="project-description">
-              <p>
-                Dette projekt var vores 2. semester eksamensopgave, hvor vi udviklede en digital brugeroplevelse for Nørrebro Späti. Vi undersøgte kioskens fysiske rum og stil på SoMe og omdannede det til en visuel identitet som vi kunne bruge til en
-                ny hjemmeside.
-              </p>
-              <p>
-                Jeg arbejdede med UX/UI, visuel identitet og udvikling af et SoMe koncept, som matchede virksomhedens ønske om at undgå paid media. Projektet har givet mig erfaring med at skabe en sammenhængende digital identitet på tværs af
-                platforme.
-              </p>
-              <p>OBS: Vores backend er udløbet - se figma prototype <a href="#">her</a></p>
+          <div class="spati-col spati-col--phone">
+            <div class="project-image">
+              <img src="assets/img/Spati-mockup.png" alt="Nørrebro Späti Website" />
+            </div>
+            <div class="cta">
+              <img class="arrow" src="assets/arrow1.svg" alt="" aria-hidden="true" />
+              <a href="#" class="project-button"><img src="assets/cta.svg" alt="hjemmeside knap" /></a>
             </div>
           </div>
-          <div class="project-image">
-            <img src="assets/img/Spati-mockup.png" alt="Nørrebro Späti Website" />
+
+          <div class="spati-col spati-col--content">
+            <div class="project-text">
+              <h4>Nørrebro Späti</h4>
+              <div class="project-description">
+                <p>
+                  Dette projekt var vores 2. semester eksamensopgave, hvor vi udviklede en digital brugeroplevelse for Nørrebro Späti. Vi undersøgte kioskens fysiske rum og stil på SoMe og omdannede det til en visuel identitet som vi kunne bruge til
+                  en ny hjemmeside.
+                </p>
+                <p>
+                  Jeg arbejdede med UX/UI, visuel identitet og udvikling af et SoMe koncept, som matchede virksomhedens ønske om at undgå paid media. Projektet har givet mig erfaring med at skabe en sammenhængende digital identitet på tværs af
+                  platforme.
+                </p>
+                <p>OBS: Vores backend er udløbet - se figma prototype <a href="#">her</a></p>
+              </div>
+            </div>
+
+            <div class="project-image project-image--phone">
+              <img src="assets/img/Iphone3-mockup.png" alt="SoMe post" />
+            </div>
+            <div class="cta cta--video">
+              <img class="arrow arrow--flip" src="assets/arrow1.svg" alt="" aria-hidden="true" />
+              <a href="#" class="project-button"><img src="assets/cta2.svg" alt="video knap" /></a>
+            </div>
           </div>
-          <a href="#" class="project-button"><img src="assets/cta.svg" alt="hjemmeside knap" /></a>
-          <img src="assets/img/Iphone3-mockup.png" alt="SoMe post" />
-          <a href="#" class="project-button"><img src="assets/cta2.svg" alt="video knap" /></a>
         </div>
       </article>
     </main>
     <footer class="site-footer">
-      <img class="footer-outline" src="assets/header.svg" alt="" />
-
+      <img class="footer-outline" src="assets/footer.svg" alt="" aria-hidden="true" />
       <div class="footer-content">
-        <a href="index.html" class="logo">
-          <img src="assets/img/Logo.svg" alt="Mathias Vexøe logo" />
+        <a href="index.html" class="logo" aria-label="Mathias Vexøe logo">
+          <span class="logo-icon"></span>
         </a>
 
         <div class="contact">
@@ -151,7 +185,11 @@
             <a href="mailto:mathiasvexoee@icloud.com"> mathiasvexoee@icloud.com </a>
           </p>
         </div>
-        <a href="#" class="linkedin" aria-label="LinkedIn"><img src="assets/linkedin.svg" alt="LinkedIn logo" /></a>
+        <img class="divider-line" src="assets/divider.svg" alt="" aria-hidden="true" />
+        <a href="#" class="linkedin" aria-label="LinkedIn">
+          <span class="linkedin-icon"></span>
+        </a>
+        <img class="divider-line" src="assets/divider.svg" alt="" aria-hidden="true" />
       </div>
     </footer>
   </body>

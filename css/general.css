@@ -8,12 +8,20 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
+/* =========================
+   VARIABLES
+========================= */
+
 :root {
   --black: #242528;
-  --blue: #cbe0ec;
+  --blue: #c5dfed;
   --blue-text: #6993ab;
-  --white: #f9f8f7;
+  --white: #fdfcfb;
 }
+
+/* =========================
+   RESET
+========================= */
 
 * {
   margin: 0;
@@ -28,6 +36,7 @@ html {
 body {
   background-color: var(--white);
   color: var(--black);
+
   overflow-x: hidden;
 }
 
@@ -39,6 +48,10 @@ img {
 a {
   color: inherit;
 }
+
+/* =========================
+   TYPOGRAPHY
+========================= */
 
 h1,
 h2,
@@ -64,4 +77,56 @@ p {
 .container {
   width: min(1100px, calc(100% - 70px));
   margin: 0 auto;
+}
+
+/* =========================
+   HÅNDTEGNET STREG (delt mellem header-nav og footer)
+========================= */
+
+.divider-line {
+  display: block;
+
+  height: clamp(16px, 2.2vw, 22px);
+  width: auto;
+}
+
+/* =========================
+   LOGO / LINKEDIN-IKON MED HOVER-FARVE
+   (SVG'erne er ét-farvede, så vi bruger dem som en maske
+   og styrer farven via background-color - det giver en
+   ren hover-overgang til --blue-text uden en ekstra fil)
+========================= */
+
+.logo-icon,
+.linkedin-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--black);
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+  transition: background-color 0.2s ease;
+}
+
+.logo-icon {
+  aspect-ratio: 68.8 / 48.41;
+  -webkit-mask-image: url("../assets/img/Logo.svg");
+  mask-image: url("../assets/img/Logo.svg");
+}
+
+.linkedin-icon {
+  -webkit-mask-image: url("../assets/linkedin.svg");
+  mask-image: url("../assets/linkedin.svg");
+}
+
+.logo:hover .logo-icon,
+.linkedin:hover .linkedin-icon {
+  background-color: var(--blue-text);
 }

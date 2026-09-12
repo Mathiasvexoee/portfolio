@@ -1,9 +1,17 @@
+:root {
+  --content-width: min(1100px, calc(100% - 70px));
+  --gap-lg: 50px;
+  --gap-md: 30px;
+  --gap-sm: 15px;
+  --arrow-size: clamp(50px, 6vw, 80px);
+}
+
 /* =========================
    HERO
 ========================= */
 
 .hero {
-  width: min(1100px, calc(100% - 70px));
+  width: var(--content-width);
   min-height: 520px;
   margin: 0 auto;
   padding: 65px 0 20px;
@@ -22,6 +30,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: -0.03em;
+  white-space: nowrap;
 }
 
 .hero h2 {
@@ -42,12 +51,27 @@
   margin-bottom: 20px;
 }
 
+/* Portrættet må gerne blive lidt større og gå let ind over navnet,
+   ligesom i prototypen - z-index holder navnet læsbart ovenpå */
 .portrait {
   position: absolute;
-  width: clamp(260px, 36vw, 410px);
-  right: 0;
-  bottom: 5px;
+  width: clamp(220px, 27vw, 340px);
+  right: -20px;
+  top: 20px;
   z-index: 1;
+}
+
+/* Pilen fra navnet til portrættet.
+   top regnes ud fra den SAMME formel som h1's font-size/line-height,
+   og right ud fra portrættets egen bredde-formel - så den flugter med
+   navnet og portrættet i alle viewport-bredder, ikke kun én bestemt. */
+.hero-arrow {
+  position: absolute;
+  width: clamp(50px, 6vw, 90px);
+  height: auto;
+  right: calc(clamp(220px, 27vw, 340px) - 5px);
+  top: calc(65px + clamp(3rem, 7vw, 6rem) * 0.9 * 0.45);
+  z-index: 3;
 }
 
 /* =========================
@@ -75,7 +99,7 @@
 }
 
 /* =========================
-   PROJECT SECTIONS
+   PROJECT SECTIONS (fælles grid)
 ========================= */
 
 .project {
@@ -85,20 +109,20 @@
 }
 
 .project-inner {
-  width: min(1100px, calc(100% - 70px));
+  width: var(--content-width);
   min-height: 540px;
   margin: 0 auto;
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto 1fr auto;
-  column-gap: 50px;
+  column-gap: var(--gap-lg);
+  row-gap: var(--gap-sm);
   align-items: center;
   padding: 60px 0;
 }
 
 /* Blå baggrunde */
-
 .project-some,
 .project-spati {
   background-color: var(--blue);
@@ -128,6 +152,79 @@
 }
 
 /* =========================
+   PROJECT IMAGE (standard)
+========================= */
+
+.project-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-image img {
+  width: 100%;
+  max-width: 530px;
+  height: auto;
+}
+
+.project-image--phone img {
+  max-width: 220px;
+}
+
+/* =========================
+   CTA-GRUPPER (pil + knap)
+========================= */
+
+.cta,
+.cta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.arrow {
+  width: var(--arrow-size);
+  height: auto;
+}
+
+/* Spejlvendt variant til pile der peger den anden vej */
+.arrow--flip {
+  transform: scaleX(-1);
+}
+
+/* Knappen er selve SVG'en - ingen ekstra outline/boks udover den */
+.project-button {
+  display: inline-block;
+  line-height: 0; /* fjerner det usynlige mellemrum under billedet, som gav en "ekstra streg" under knappen */
+  transition: transform 0.2s ease;
+}
+
+.project-button img {
+  display: block;
+  width: 150px;
+  height: auto;
+}
+
+.project-button:hover {
+  transform: scale(1.05);
+}
+
+/* Pænt fokus-ring i stedet for browserens grimme default-outline */
+.project-button:focus-visible {
+  outline: 2px dashed var(--blue-text);
+  outline-offset: 6px;
+  border-radius: 999px;
+}
+
+.video-button {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* =========================
    JOJO
 ========================= */
 
@@ -141,117 +238,67 @@
   grid-row: 1 / 3;
 }
 
-.project-jojo .project-button {
+.project-jojo .cta {
   grid-column: 1;
   grid-row: 3;
-
   justify-self: center;
-}
-
-/* =========================
-   STANDARD PROJECT IMAGE
-========================= */
-
-.project-image {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-}
-
-.project-image img {
-  width: 100%;
-  max-width: 530px;
-  height: auto;
-}
-
-/* =========================
-   PROJECT BUTTONS
-========================= */
-
-.project-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 150px;
-  min-height: 50px;
-  text-decoration: none;
-  color: var(--blue-text);
-  font-family: "Roboto", sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition:
-    transform 0.2s ease,
-    background-color 0.2s ease;
-}
-
-.video-button {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.project-button:hover {
-  transform: scale(1.05);
 }
 
 /* =========================
    SOME
 ========================= */
 
-.project-some .project-text {
-  grid-column: 1;
-  grid-row: 1 / 3;
+/* Venstre kolonne: tekst ovenpå computeren. Højre kolonne: de to
+   telefoner, ved siden af det hele (spænder over begge rækker) */
+.project-some .project-inner {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  align-items: start;
+  row-gap: 30px;
 }
 
-.some-images {
+.project-some .project-text {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.project-some .some-card--laptop {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.project-some .phones {
   grid-column: 2;
   grid-row: 1 / 3;
+  align-self: center;
+}
 
-  position: relative;
-
-  min-height: 430px;
+/* Hvert billede har sin egen pil+knap lige under sig,
+   så de aldrig kan komme ud af trit med hinanden */
+.some-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 .some-laptop {
-  position: absolute;
-
   width: 75%;
-
-  right: 0;
-  top: 0;
 }
 
 .phones {
-  position: absolute;
-
-  width: 100%;
-
-  right: 0;
-  bottom: 0;
-
   display: flex;
-
-  align-items: flex-end;
-  justify-content: flex-end;
-
-  gap: 15px;
+  align-items: flex-start; /* de to telefon-kort flugter i toppen, uanset at telefonerne er forskellige højder */
+  justify-content: center;
+  gap: 30px;
 }
 
-.phones img {
-  width: 28%;
+.phone-mockup--sm {
+  width: 150px;
 }
 
-.project-some .project-button {
-  grid-column: 1;
-  grid-row: 3;
-}
-
-.project-some .video-button {
-  grid-column: 2;
-  grid-row: 3;
-
-  justify-self: center;
+.phone-mockup--lg {
+  width: 220px;
 }
 
 /* =========================
@@ -268,10 +315,9 @@
   grid-row: 1 / 3;
 }
 
-.project-ux .project-button {
+.project-ux .cta {
   grid-column: 2;
   grid-row: 3;
-
   justify-self: center;
 }
 
@@ -279,28 +325,25 @@
    SPÄTI
 ========================= */
 
-.project-spati .project-text {
-  grid-column: 2;
-  grid-row: 1 / 3;
+/* To uafhængige kolonner i stedet for delte grid-rækker -
+   ellers bliver tekst-kolonnens højde presset op af telefon-kolonnen,
+   og der opstår et stort tomrum over kiosk-billedet */
+.project-spati .project-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-lg);
 }
 
-.project-spati .project-image {
-  grid-column: 1;
-  grid-row: 1 / 3;
-}
+/* Begge kolonner lige brede, ligesom i JOJO/UX - billedernes egen
+   max-width (530px normalt, 220px for telefonen) styrer den faktiske
+   størrelse, så computeren ikke bliver klemt ned i en smal kolonne */
+.spati-col--phone,
+.spati-col--content {
+  flex: 1;
 
-.project-spati .project-button {
-  grid-column: 1;
-  grid-row: 3;
-
-  justify-self: center;
-}
-
-.project-spati .video-button {
-  grid-column: 2;
-  grid-row: 3;
-
-  justify-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 /* =========================
@@ -309,34 +352,22 @@
 
 .site-footer {
   position: relative;
-
   width: min(1100px, calc(100vw - 40px));
-
   margin: 110px auto 30px;
 }
 
-/* Samme SVG som header */
-
 .footer-outline {
   display: block;
-
   width: 100%;
   height: auto;
 }
 
-/* Footer content */
-
 .footer-content {
   position: absolute;
-
   inset: 0;
-
   display: flex;
-
   align-items: center;
-
   gap: 30px;
-
   padding: 0 5%;
 }
 
@@ -350,7 +381,6 @@
 
 .contact p {
   margin: 8px 0;
-
   font-size: clamp(0.7rem, 1.2vw, 0.9rem);
 }
 
@@ -366,16 +396,11 @@
   width: 45px;
   height: 45px;
   display: flex;
-
   align-items: center;
   justify-content: center;
-
   text-decoration: none;
-
   font-family: "Roboto", sans-serif;
-
   font-weight: 700;
-
   font-size: 1.2rem;
 }
 
@@ -383,10 +408,9 @@
    TABLET
 ========================= */
 
-@media (max-width: 900px) {
+/* @media (max-width: 900px) {
   .hero {
     min-height: 450px;
-
     padding-top: 50px;
   }
 
@@ -399,30 +423,31 @@
   }
 
   .portrait {
-    width: 36vw;
-
+    width: clamp(160px, 22vw, 240px);
     right: -10px;
   }
 
   .project-inner {
-    column-gap: 30px;
+    column-gap: var(--gap-md);
   }
 
   .project-text h4 {
     font-size: clamp(2.3rem, 5vw, 3.5rem);
   }
-}
+} */
 
 /* =========================
    MOBILE
+   (alle sektioner går til samme flex-column-flow,
+   så vi styrer rækkefølgen ét sted i stedet for at
+   gentage selektorer pr. sektion)
 ========================= */
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   /* HEADER */
 
   .site-header {
     width: calc(100vw - 25px);
-
     margin-top: 15px;
   }
 
@@ -435,13 +460,11 @@
   }
 
   .header-content nav ul {
-    gap: 25px;
+    gap: 14px;
   }
 
-  .header-content nav li:not(:last-child)::after {
-    height: 16px;
-
-    right: -14px;
+  .divider-line {
+    height: 14px;
   }
 
   .header-content nav a {
@@ -452,31 +475,28 @@
 
   .hero {
     width: calc(100% - 40px);
-
     min-height: auto;
-
     padding-top: 45px;
-
     display: flex;
-
-    flex-direction: column;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 15px;
   }
 
   .hero-text {
-    width: 100%;
+    width: 65%;
   }
 
   .hero h1 {
-    font-size: clamp(2.8rem, 13vw, 5rem);
+    font-size: clamp(2rem, 11vw, 5rem);
   }
 
   .hero h2 {
-    font-size: 1rem;
+    font-size: clamp(1.5rem, 4vw, 5rem);
   }
 
   .hero-description {
     margin-top: 30px;
-
     max-width: none;
   }
 
@@ -486,15 +506,22 @@
 
   .portrait {
     position: relative;
-
-    width: 75%;
-
+    width: 35%;
     right: auto;
     bottom: auto;
+    align-self: flex-start;
+    margin-top: 15vw;
+  }
 
-    align-self: flex-end;
-
-    margin-top: -10px;
+  /* Mobil har sit eget flex-layout (hero-text/portræt side om side).
+     Portrættets margin-top er 15vw, så pilen bruger samme 15vw-led
+     for at holde en fast, lille afstand ned til portrættet uanset
+     viewport-bredde, i stedet for at følge tekstens højde */
+  .hero-arrow {
+    width: 34px;
+    right: auto;
+    left: calc(65% + 4px);
+    top: calc(30px + 15vw);
   }
 
   /* PORTFOLIO */
@@ -515,7 +542,7 @@
     font-size: 0.9rem;
   }
 
-  /* PROJECTS */
+  /* PROJEKTER - fælles flex-flow for alle fire sektioner */
 
   .project {
     min-height: auto;
@@ -523,33 +550,21 @@
 
   .project-inner {
     width: calc(100% - 40px);
-
     min-height: auto;
-
     padding: 50px 0;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: stretch;
-
     gap: 25px;
   }
 
-  .project-text,
-  .project-jojo .project-text,
-  .project-some .project-text,
-  .project-ux .project-text,
-  .project-spati .project-text {
+  .project-text {
     order: 1;
-
     width: 100%;
   }
 
   .project-text h4 {
     font-size: clamp(2.5rem, 11vw, 4rem);
-
     margin-bottom: 20px;
   }
 
@@ -557,12 +572,8 @@
     font-size: 0.75rem;
   }
 
-  .project-image,
-  .project-jojo .project-image,
-  .project-ux .project-image,
-  .project-spati .project-image {
+  .project-image {
     order: 2;
-
     width: 100%;
   }
 
@@ -570,60 +581,80 @@
     width: 100%;
   }
 
-  .project-button,
-  .project-jojo .project-button,
-  .project-some .project-button,
-  .project-some .video-button,
-  .project-ux .project-button,
-  .project-spati .project-button,
-  .project-spati .video-button {
+  .cta {
     order: 3;
-
-    width: 135px;
-
     align-self: center;
+  }
 
-    justify-self: auto;
+  .project-button img {
+    width: 135px;
+  }
+
+  .arrow {
+    width: 44px;
   }
 
   /* SOME */
 
-  .some-images {
+  .some-card--laptop {
     order: 2;
-
-    min-height: 400px;
-
-    width: 100%;
   }
 
   .some-laptop {
-    width: 85%;
-
-    right: 0;
+    width: 100%;
   }
 
   .phones {
-    bottom: 0;
-
-    gap: 8px;
+    order: 3;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 12px;
   }
 
-  .phones img {
-    width: 30%;
+  .phone-mockup--sm {
+    width: 110px;
+  }
+
+  .phone-mockup--lg {
+    width: 160px;
+  }
+
+  /* SPÄTI - på mobil vises pillen, telefonbilledet, kiosk-billedet
+     og hjemmeside-knappen i naturlig rækkefølge efter teksten.
+     De to kolonne-wrappere fra desktop "fjernes" med display:contents,
+     så børnene igen kan ordnes enkeltvis med order herunder. */
+
+  .spati-col {
+    display: contents;
+  }
+
+  .project-image--phone {
+    order: 2;
+  }
+
+  .cta--video {
+    order: 3;
+  }
+
+  .project-image:not(.project-image--phone) {
+    order: 4;
+  }
+
+  .cta:not(.cta--video) {
+    order: 5;
   }
 
   /* FOOTER */
 
   .site-footer {
     width: calc(100vw - 25px);
-
     margin-top: 70px;
     margin-bottom: 20px;
   }
 
   .footer-content {
     padding: 0 5%;
-
     gap: 15px;
   }
 
@@ -633,14 +664,12 @@
 
   .contact p {
     font-size: 0.65rem;
-
     margin: 4px 0;
   }
 
   .linkedin {
     width: 35px;
     height: 35px;
-
     font-size: 1rem;
   }
 }
