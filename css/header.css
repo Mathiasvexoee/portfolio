@@ -3,33 +3,13 @@
 ========================= */
 
 .site-header {
-  position: relative;
-
-  width: min(1100px, calc(100vw - 40px));
-
   margin: 25px auto 0;
-}
-
-/* Selve den håndtegnede outline-boks */
-
-.header-outline {
-  display: block;
-
-  max-width: 100%;
-  height: auto;
 }
 
 /* Indhold oven på SVG */
 
 .header-content {
-  position: absolute;
-
-  inset: 0;
-
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-
   padding: 0 4%;
 }
 
@@ -37,7 +17,6 @@
 
 .logo {
   display: block;
-
   width: clamp(35px, 5vw, 60px);
 }
 
@@ -46,9 +25,7 @@
 .header-content nav ul {
   display: flex;
   align-items: center;
-
   gap: clamp(14px, 2.5vw, 28px);
-
   list-style: none;
 }
 
@@ -58,17 +35,10 @@
 
 .header-content nav a {
   text-decoration: none;
-
   text-transform: uppercase;
-
-  color: var(--black);
-
-  font-family: "Roboto", sans-serif;
-
+  font-family: "Chillax", sans-serif;
   font-size: clamp(0.7rem, 1.3vw, 1rem);
-
-  font-weight: 700;
-
+  font-weight: 600;
   transition: color 0.2s ease;
 }
 

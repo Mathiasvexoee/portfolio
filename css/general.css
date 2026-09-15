@@ -17,6 +17,13 @@
   --blue: #c5dfed;
   --blue-text: #6993ab;
   --white: #fdfcfb;
+
+  --content-width: min(1100px, calc(100% - 70px));
+  --frame-width: min(1100px, calc(100vw - 40px));
+  --frame-width-mobile: calc(100vw - 25px);
+  --gap-lg: 50px;
+  --media-gap: 18px;
+  --arrow-size: clamp(50px, 6vw, 80px);
 }
 
 /* =========================
@@ -75,7 +82,7 @@ p {
 ========================= */
 
 .container {
-  width: min(1100px, calc(100% - 70px));
+  width: var(--content-width);
   margin: 0 auto;
 }
 
@@ -84,10 +91,7 @@ p {
 ========================= */
 
 .divider-line {
-  display: block;
-
   height: clamp(16px, 2.2vw, 22px);
-  width: auto;
 }
 
 /* =========================
@@ -129,4 +133,35 @@ p {
 .logo:hover .logo-icon,
 .linkedin:hover .linkedin-icon {
   background-color: var(--blue-text);
+}
+
+/* =========================
+   HEADER/FOOTER-RAMME (delt mellem site-header og site-footer)
+========================= */
+
+.site-header,
+.site-footer {
+  position: relative;
+  width: var(--frame-width);
+}
+
+.header-content,
+.footer-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* =========================
+   LODRET STACK (pil/knap-grupper og projekt-kort)
+========================= */
+
+.cta,
+.cta-item,
+.project-media,
+.some-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
