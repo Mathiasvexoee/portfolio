@@ -1,21 +1,9 @@
-:root {
-  --content-width: min(1100px, calc(100% - 70px));
-  --gap-lg: 50px;
-  --media-gap: 18px;
-  --arrow-size: clamp(50px, 6vw, 80px);
-}
-
 /* =========================
    HERO
 ========================= */
 
 .hero {
   width: var(--content-width);
-  /* Skal altid nå ned under portrættet, ellers bløder billedet ind i
-     PORTFOLIO-banneret nedenunder - men kun lige akkurat, så der ikke
-     står et stort tomt felt under teksten i venstre side. Beregnet ud
-     fra samme formel som portrættets egen bredde/aspect ratio
-     (449x690), så det matcher ved enhver viewport-bredde. */
   min-height: calc(93px + clamp(220px, 27vw, 340px) * 690 / 449);
   margin: 0 auto;
   padding: 65px 0 20px;
@@ -55,8 +43,6 @@
   margin-bottom: 20px;
 }
 
-/* Portrættet må gerne blive lidt større og gå let ind over navnet,
-   ligesom i prototypen - z-index holder navnet læsbart ovenpå */
 .portrait {
   position: absolute;
   width: clamp(220px, 27vw, 340px);
@@ -65,16 +51,6 @@
   z-index: 1;
 }
 
-/* Pilen fra navnet til portrættet.
-   top regnes ud fra den SAMME formel som h1's font-size/line-height
-   (inklusiv dens clamp-loft), og right ud fra portrættets egen
-   bredde-formel - så den flugter med navnet og portrættet i alle
-   viewport-bredder. Vigtigt: top må IKKE bare være "Nvw" uden clamp -
-   så bliver den ved med at vokse i det uendelige efter siden i øvrigt
-   er stoppet med at vokse (content-width capper ved 1100px), og
-   pilen ender langt nede hvis vinduet er bredere end det (fx ved at
-   zoome ud med cmd+-, hvor den effektive viewport-bredde bliver
-   større end de faktisk synlige ~1400px). */
 .hero-arrow {
   position: absolute;
   width: clamp(70px, 6vw, 90px);
@@ -156,6 +132,11 @@
   margin-bottom: 20px;
 }
 
+.text-link {
+  color: var(--blue-text);
+  font-weight: 700;
+}
+
 /* =========================
    PROJECT MEDIA (billede + CTA grupperet,
    så afstanden mellem dem altid er den samme
@@ -163,9 +144,6 @@
 ========================= */
 
 .project-media {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: var(--media-gap);
 }
 
@@ -192,18 +170,10 @@
 
 .cta,
 .cta-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: 8px;
   --cta-shift: 0px;
 }
 
-/* Pilene er håndtegnede og buer skævt - spidsen sidder ikke i midten
-   af billedet, men ca. 16% ude mod den side den peger. Knappen
-   forskydes derfor tilsvarende, så pilens spids rammer ned oveni
-   knappen i stedet for at pege ved siden af en "perfekt" centreret
-   knap. */
 .cta:has(.arrow:not(.arrow--flip)),
 .cta-item:has(.arrow:not(.arrow--flip)) {
   --cta-shift: calc(var(--arrow-size) * 0.16);
@@ -219,15 +189,13 @@
   height: auto;
 }
 
-/* Spejlvendt variant til pile der peger den anden vej */
 .arrow--flip {
   transform: scaleX(-1);
 }
 
-/* Knappen er selve SVG'en - ingen ekstra outline/boks udover den */
 .project-button {
   display: inline-block;
-  line-height: 0; /* fjerner det usynlige mellemrum under billedet, som gav en "ekstra streg" under knappen */
+  line-height: 0;
   transform: translateX(var(--cta-shift)) scale(var(--cta-scale, 1));
   transition: transform 0.2s ease;
 }
@@ -242,7 +210,6 @@
   --cta-scale: 1.05;
 }
 
-/* Pænt fokus-ring i stedet for browserens grimme default-outline */
 .project-button:focus-visible {
   outline: 2px dashed var(--blue-text);
   outline-offset: 6px;
@@ -271,8 +238,6 @@
    SOME
 ========================= */
 
-/* Venstre kolonne: tekst ovenpå computeren. Højre kolonne: de to
-   telefoner, ved siden af det hele (spænder over begge rækker) */
 .project-some .project-inner {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
@@ -294,11 +259,6 @@
   align-self: flex-end;
 }
 
-/* Den lille telefons knap til venstre, den stores til højre.
-   align-self kan ikke bruges her - den lille telefons kort er præcis
-   lige så bredt som selve knappen (150px begge dele), så der er ingen
-   plads at rykke sig indenfor - derfor et direkte sideværts skub i
-   stedet, som virker uanset kortets bredde. */
 .phones .some-card:has(.phone-mockup--sm) .cta-item {
   transform: translateX(-22px);
 }
@@ -313,12 +273,7 @@
   align-self: center;
 }
 
-/* Hvert billede har sin egen pil+knap lige under sig,
-   så de aldrig kan komme ud af trit med hinanden */
 .some-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: 8px;
 }
 
@@ -328,7 +283,7 @@
 
 .phones {
   display: flex;
-  align-items: center; /* det lille telefon-kort centreres på tværs af det store, i stedet for at flugte i toppen */
+  align-items: center;
   justify-content: center;
   gap: 30px;
 }
@@ -363,12 +318,6 @@
    SPÄTI
 ========================= */
 
-/* Telefonen ligger til venstre (spænder over begge rækker og centreres
-   lodret), computeren ligger i højre kolonne lige under teksten - som
-   et almindeligt grid uden tomme rum, i stedet for to uens høje
-   flex-kolonner ved siden af hinanden. HTML-rækkefølgen er allerede
-   tekst -> telefon -> computer, så mobilen får den rigtige rækkefølge
-   helt uden ekstra order-regler. */
 .project-spati .project-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -393,15 +342,8 @@
   align-self: center;
 }
 
-/* Knapperne rykkes mod midten (telefonens til højre, computerens til
-   venstre) i stedet for at stå centreret under hver deres billede -
-   så de to knapper kommer tættere på hinanden. Billederne selv
-   forbliver centrerede, det er kun CTA-gruppen der flyttes. Pilene
-   flippes tilsvarende, så de stadig peger ned mod deres knap. */
 .project-spati .project-media--phone .cta {
   align-self: flex-end;
-  /* Trukket en smule tilbage fra kanten, så den ikke sidder helt ude
-     i hjørnet. */
   margin-right: 30px;
 }
 
@@ -414,28 +356,16 @@
 ========================= */
 
 .site-footer {
-  position: relative;
-  width: min(1100px, calc(100vw - 40px));
   margin: 110px auto 30px;
 }
 
 .footer-outline {
-  display: block;
   width: 100%;
-  height: auto;
 }
 
 .footer-content {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
   gap: 30px;
   padding: 0 5%;
-}
-
-.footer-logo {
-  width: clamp(40px, 5vw, 60px);
 }
 
 .contact {
@@ -471,23 +401,19 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-size: 1.2rem;
 }
 
 /* =========================
    MOBILE
-   (alle sektioner går til samme flex-column-flow,
-   så vi styrer rækkefølgen ét sted i stedet for at
-   gentage selektorer pr. sektion)
 ========================= */
 
 @media (max-width: 800px) {
   /* HEADER */
 
   .site-header {
-    width: calc(100vw - 25px);
+    width: var(--frame-width-mobile);
     margin-top: 15px;
   }
 
@@ -511,29 +437,12 @@
     font-size: 0.7rem;
   }
 
-  /* HERO
-     Navn og undertitel (h1/h2) fylder fuld bredde af viewporten.
-     Portrættet ligger nedenunder dem, til højre for brødteksten -
-     brødteksten holdes i en smallere venstre-kolonne, så billedet har
-     sin egen plads i højre side ud for paragrafferne uden at overlappe
-     dem. */
+  /* HERO */
 
   .hero {
     width: calc(100% - 40px);
     padding-top: 45px;
-    /* Ingen høj bundgrænse her - portrættet skal blive ved med at
-       krympe sammen med teksten hele vejen ned til 300px, ellers er
-       der ikke plads til begge dele ved siden af hinanden, og teksten
-       ender med at brække i alt for mange linjer. */
     --mobile-portrait-w: clamp(72px, 25vw, 150px);
-    /* Skal centreres ud for brødteksten i stedet for at hænge lige
-       under h1/h2. I den smalle ende af mobil-intervallet brækker
-       teksten i mange flere linjer (kolonnen er smallere), så
-       paragraf-blokken bliver høj og der er god plads til at rykke
-       billedet langt ned for at centrere det - derfor falder værdien
-       med bredden i stedet for at stige. I den brede ende fylder
-       billedet selv det meste af pladsen ved siden af den nu kortere
-       tekst, så der skal kun en lille smule til. */
     --mobile-portrait-top: clamp(130px, 216px - 11vw, 185px);
     min-height: calc(var(--mobile-portrait-top) + var(--mobile-portrait-w) * 1.54 + 20px);
   }
@@ -554,10 +463,6 @@
   .hero-description {
     margin-top: 20px;
     max-width: none;
-    /* Kolonnen går næsten helt ud til portrættet, så der ikke står et
-       stort tomt hul mellem teksten og billedet - ordentlig orddeling
-       i stedet for et råt tegn-brud, hvis et enkelt ord ikke er plads
-       til. */
     width: calc(100% - var(--mobile-portrait-w) - 28px);
     -webkit-hyphens: auto;
     hyphens: auto;
@@ -565,8 +470,6 @@
   }
 
   .hero-description p {
-    /* Krymper lidt yderligere ned mod 300px, så den smalle kolonne ved
-       siden af portrættet ikke brækker i alt for mange linjer. */
     font-size: clamp(0.68rem, 3vw, 0.76rem);
   }
 
@@ -576,13 +479,8 @@
     top: var(--mobile-portrait-top);
   }
 
-  /* Pilen peger nu skråt ned fra navnet til portrættet, som ligger
-     længere nede end i desktop-versionen. */
   .hero-arrow {
     width: 34px;
-    /* Rykket lidt længere ind over portrættet, så spidsen lander
-       tydeligt inde på billedet i stedet for at ramme selve
-       konturstregen om det. */
     right: calc(var(--mobile-portrait-w) - 10px);
     top: calc(var(--mobile-portrait-top) - 25px);
   }
@@ -622,12 +520,6 @@
     width: 100%;
   }
 
-  /* Billederne er stablet i én kolonne i mobil, så de venstre/højre-
-     forskydninger CTA'erne har på desktop giver ikke mening her -
-     alle centreres under deres eget billede igen. Selektorerne skal
-     matche desktop-reglerne præcist, ellers taber resettet på
-     specificitet (en enkelt ".cta"-regel er ikke specifik nok til at
-     overskrive fx ".project-jojo .project-media .cta"). */
   .project-jojo .project-media .cta,
   .project-some .some-card--laptop .cta,
   .project-ux .project-media .cta,
@@ -659,12 +551,9 @@
 
   .project-image img {
     width: 100%;
-    /* Computer-mockups (bærbar/kiosk-skærme) må maks fylde 80% af
-       viewporten i mobil, så de ikke virker overvældende store. */
     max-width: 80vw;
   }
 
-  /* Späti-telefonen skal være endnu mindre end de andre mockups i mobil */
   .project-image--phone img {
     max-width: 50vw;
   }
@@ -704,9 +593,7 @@
     width: 160px;
   }
 
-  /* SPÄTI - HTML-rækkefølgen er allerede tekst -> telefon -> computer,
-     så mobilen skal bare falde tilbage til almindeligt flow i én
-     kolonne i stedet for desktoppens grid. */
+  /* SPÄTI */
 
   .project-spati .project-inner {
     display: flex;
@@ -715,24 +602,16 @@
     gap: 30px;
   }
 
-  /* FOOTER - samme opbygning som header: outline-SVG'en ligger i
-     normalt flow (width:100%, height:auto) og bestemmer boksens
-     højde ud fra sit eget billedforhold, mens .footer-content ligger
-     ovenpå med position:absolute + inset:0, præcis som
-     .header-content. */
+  /* FOOTER */
 
   .site-footer {
-    width: calc(100vw - 25px);
+    width: var(--frame-width-mobile);
     margin-top: 70px;
     margin-bottom: 20px;
   }
 
   .footer-content {
     gap: 15px;
-  }
-
-  .footer-logo {
-    width: 35px;
   }
 
   .contact p {
